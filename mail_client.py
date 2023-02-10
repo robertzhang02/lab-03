@@ -12,7 +12,7 @@ def send_mail(recipient: str, sender: str, subject: str, body: str) -> bool:
     - sender
     - subject
     - body
-    
+   
     Args:
         recipient (str): The recipient of the mail
         sender (str): The sender of the mail
@@ -33,24 +33,52 @@ def send_mail(recipient: str, sender: str, subject: str, body: str) -> bool:
 
 def get_inbox(recipient: str) -> None:
     """TODO: fill out this docstring (using the send_mail docstring as a guide)
+    Summary: get and print the inbox of the recipient
+   
+    Args:
+    recipient(str): the recipient of the mail
+   
+    Returns:
+    none
     """
     response = requests.get(f'{SERVER}/mail/inbox/{recipient}')
     pprint.pprint(response.json())
 
 def get_sent(sender: str) -> None:
     """TODO: fill out this docstring (using the send_mail docstring as a guide)
+    Summary: get and print the sent box of the sender
+   
+    Args:
+    sender(str): the sender of the mail
+   
+    Returns:
+    none
     """
     response = requests.get(f'{SERVER}/mail/sent/{sender}')
     pprint.pprint(response.json())
 
 def get_mail(mail_id: str) -> None:
     """TODO: fill out this docstring (using the send_mail docstring as a guide)
+    Summary: get and print the specific mail bt mail id
+   
+    Args:
+    mail_id(str): the id of the mail
+   
+    Returns:
+    none
     """
     response = requests.get(f'{SERVER}/mail/{mail_id}')
     pprint.pprint(response.json())
 
 def delete_mail(mail_id: str) -> None:
     """TODO: fill out this docstring (using the send_mail docstring as a guide)
+    Summary: get and delete the mail by mail id
+   
+    Args:
+    mail_id(str): the id of the mail
+   
+    Returns:
+    none
     """
     response = requests.delete(f'{SERVER}/mail/{mail_id}')
     pprint.pprint(response.json())
@@ -60,14 +88,14 @@ def delete_mail(mail_id: str) -> None:
 # see if you can understand what each line is doing
 def get_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description='Mail Client')
-    
+   
     subparsers = parser.add_subparsers(dest='command')
     subparsers.required = True
 
     send_parser = subparsers.add_parser('send', help='Send a mail')
     send_parser.add_argument('body', help='The body of the mail')
     send_parser.add_argument(
-        '-t', "--to", 
+        '-t', "--to",
         dest="recipient",
         help='The recipient of the mail'
     )
@@ -77,8 +105,8 @@ def get_parser() -> argparse.ArgumentParser:
         help='The sender of the mail'
     )
     send_parser.add_argument(
-        '-s', "--subject", 
-        help='The subject of the mail', 
+        '-s', "--subject",
+        help='The subject of the mail',
         default="No Subject"
     )
 
@@ -119,4 +147,3 @@ def main():
 # you'll need to demo sending, receiving, and deleting mail for checkoff.
 if __name__ == '__main__':
     main()
-
